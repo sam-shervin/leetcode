@@ -1,17 +1,22 @@
 class Solution:
-    def isPalindrome(self, s:str):
-        for i in range(len(s)//2):
-            if s[i] != s[len(s)-i-1]:
-                return False
-        return True
+    def check(self, s:str, l:int, r:int, max_length:int, pres_s):
+        string = pres_s
+        while l>=0 and r<len(s) and s[l] == s[r]:
+            palindrome = s[l:r+1]
+            if len(palindrome) > max_length:
+                max_length = len(palindrome)
+                string = palindrome
+            l-=1
+            r+=1
+        return string, max_length
+        
     def longestPalindrome(self, s: str) -> str:
         if (len(s) == 1):
             return s
-        flag = ''
-        for i in range(1, len(s)+1):
-            for j in range(0, len(s)-i+1):
-                string = s[j:j+i]
-                if self.isPalindrome(string):
-                    flag = string
-                    break
-        return flag
+        max_length = 0
+        long_palindrome = s
+        for i in range(len(s)):
+            long_palindrome, max_length = self.check(s, i,i, max_length, long_palindrome)
+            long_palindrome, max_length = self.check(s, i, i+1, max_length, long_palindrome)
+            
+        return long_palindrome
