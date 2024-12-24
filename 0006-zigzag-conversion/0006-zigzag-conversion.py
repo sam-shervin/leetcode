@@ -17,4 +17,3 @@ class Solution:
                     if j + interval - 2*i < len(s):
                         newString += s[j + interval - 2*i]
         return newString;
-        
