@@ -3,12 +3,6 @@ class Solution:
         if numRows == 1:
             return s;
         newString = ""
-        if numRows == 2:
-            for i in range(0, len(s), 2):
-                newString+=s[i]
-            for i in range(1,len(s),2):
-                newString+=s[i]
-            return newString
         interval = 2*numRows-2;
         for i in range(0, numRows):
             if i==0:
