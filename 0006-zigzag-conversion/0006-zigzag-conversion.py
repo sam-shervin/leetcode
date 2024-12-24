@@ -14,36 +14,7 @@ class Solution:
             else:
                 for j in range(i,len(s), (interval)):
                     newString+=s[j];
-                    try:
-                        print(j, j+interval-2*i)
-                        newString+=s[j+interval-2*i]
-                    except IndexError:
-                        pass
-                
+                    if j + interval - 2*i < len(s):
+                        newString += s[j + interval - 2*i]
         return newString;
         
-        
-"""5:
-8
-6 2
-4 4
-2 6
-8
-
-4:
-6
-4 2
-2 4
-6
-    
-3:
-4
-2 2
-4
-
-2:
-2
-2
-    
-1:
-1"""
