@@ -1,7 +1,6 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
         INT_MAX = 2**31 - 1
-        INT_MIN = -2**31
         s = s.lstrip()
         if not s:
             return 0
@@ -15,7 +14,7 @@ class Solution:
         while index < len(s) and s[index].isdigit():
             digit = int(s[index])
             if result > (INT_MAX - digit) // 10:
-                return INT_MAX if sign == 1 else INT_MIN
+                return INT_MAX if sign == 1 else -2**31
             result = result * 10 + digit
             index += 1
         return sign * result
