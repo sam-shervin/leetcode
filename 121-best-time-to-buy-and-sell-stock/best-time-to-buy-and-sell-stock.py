@@ -4,8 +4,10 @@ class Solution:
         profit = 0
         for i in range(1, len(prices)):
             cost = prices[i] - mini
-            mini = min(mini, prices[i])
-            profit = max(profit, cost)
+            if prices[i] < mini:
+                mini = prices[i]
+            if profit < cost:
+                profit = cost
         return profit
 
         
