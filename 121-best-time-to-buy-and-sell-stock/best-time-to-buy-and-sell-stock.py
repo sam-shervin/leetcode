@@ -3,6 +3,9 @@ class Solution:
         m = prices[0]
         profit = 0
         for i in range(1, len(prices)):
-            profit = max(profit, prices[i]-m)
-            m = min(m, prices[i])
+            a = prices[i]-m
+            if profit<a:
+                profit = a
+            if m>prices[i]:
+                m = prices[i]
         return profit        
