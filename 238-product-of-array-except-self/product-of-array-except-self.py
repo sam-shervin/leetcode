@@ -1,7 +1,17 @@
 import numpy as np
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        nums = np.array(nums)
-        prefix = np.cumprod(np.insert(nums[:-1], 0, 1))
-        suffix = np.cumprod(np.insert(nums[::-1][:-1], 0, 1))[::-1]
-        return (prefix * suffix).tolist()
+        n = len(nums)
+        answer = [1] * n
+
+        # Compute prefix in-place
+        for i in range(1, n):
+            answer[i] = answer[i - 1] * nums[i - 1]
+
+        # Compute suffix and final result in one pass
+        suffix = 1
+        for i in range(n - 1, -1, -1):
+            answer[i] *= suffix
+            suffix *= nums[i]
+
+        return answer
