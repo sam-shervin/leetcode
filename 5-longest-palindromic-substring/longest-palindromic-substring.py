@@ -1,17 +1,17 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        start, end = 0, 0
         def expand(left: int, right: int):
-            while left > -1 and right < len(s) and s[left] == s[right]:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
                 left -= 1
                 right += 1
-            return s[left+1:right]
+            return left + 1, right - 1
 
-        long_string = ""
         for i in range(len(s)):
-            a = expand(i, i)
-            b = expand(i, i + 1)
-            if len(a)>len(long_string):
-                long_string = a
-            if len(b)>len(long_string):
-                long_string = b
-        return long_string
+            l1, r1 = expand(i, i)
+            l2, r2 = expand(i, i + 1)
+            if r1 - l1 > end - start:
+                start, end = l1, r1
+            if r2 - l2 > end - start:
+                start, end = l2, r2
+        return s[start:end+1]
