@@ -1,10 +1,18 @@
+from bisect import bisect_left
+
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [1]*n
+        sub = []  # stores the smallest possible tail of increasing subsequences
 
-        for i in range(1, n):
-            for j in range(i):
-                if nums[j]<nums[i]:
-                    dp[i] = max(dp[i], dp[j] + 1)
-        return max(dp)
+        for num in nums:
+            # Find index in sub where num can replace or be appended
+            idx = bisect_left(sub, num)
+
+            if idx == len(sub):
+                # num is bigger than any element in sub -> append
+                sub.append(num)
+            else:
+                # Replace the element at idx with num (better candidate)
+                sub[idx] = num
+
+        return len(sub)
