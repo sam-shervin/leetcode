@@ -5,7 +5,7 @@ class Solution:
             left, right = 0, len(sub) - 1
             idx = len(sub)
             while left <= right:
-                mid = (left + right) // 2
+                mid = (left + right) >> 1
                 if sub[mid] >= num:
                     idx = mid
                     right = mid - 1
