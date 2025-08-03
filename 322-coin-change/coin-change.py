@@ -1,14 +1,21 @@
+from collections import deque
+
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        coins.sort()
-        dp = [float('inf')] * (amount + 1)
-        dp[0] = 0
-        
-        for i in range(1, amount + 1):
+        if amount == 0:
+            return 0
+
+        coins.sort(reverse=True)  # larger coins first (better pruning)
+        visited = set([0])
+        queue = deque([(0, 0)])  # (current_amount, steps)
+
+        while queue:
+            curr, steps = queue.popleft()
             for c in coins:
-                if c > i:
-                    break
-                if dp[i - c] != float('inf'):
-                    dp[i] = min(dp[i], 1 + dp[i - c])
-        
-        return -1 if dp[amount] == float('inf') else dp[amount]
+                nxt = curr + c
+                if nxt == amount:
+                    return steps + 1
+                if nxt < amount and nxt not in visited:
+                    visited.add(nxt)
+                    queue.append((nxt, steps + 1))
+        return -1
