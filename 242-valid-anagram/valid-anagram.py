@@ -5,4 +5,7 @@ class Solution:
             dic[i]+=1
         for i in t:
             dic[i]-=1
-        return True if all(x == 0 for x in dic.values()) else False
+        for i in dic.values():
+            if i != 0:
+                return False
+        return True
