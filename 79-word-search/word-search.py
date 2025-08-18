@@ -1,6 +1,15 @@
+from collections import Counter
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         m, n = len(board), len(board[0])
+
+        # \U0001f525 Frequency pruning
+        board_count = Counter(ch for row in board for ch in row)
+        word_count = Counter(word)
+        for ch, cnt in word_count.items():
+            if board_count[ch] < cnt:
+                return False  # impossible
 
         def dfs(r, c, ind):
             if ind == len(word):
@@ -8,7 +17,6 @@ class Solution:
             if r < 0 or r >= m or c < 0 or c >= n or board[r][c] != word[ind]:
                 return False
 
-            # mark visited
             temp = board[r][c]
             board[r][c] = "#"
 
@@ -17,7 +25,6 @@ class Solution:
                      dfs(r, c-1, ind+1) or
                      dfs(r, c+1, ind+1))
 
-            # backtrack
             board[r][c] = temp
             return found
 
