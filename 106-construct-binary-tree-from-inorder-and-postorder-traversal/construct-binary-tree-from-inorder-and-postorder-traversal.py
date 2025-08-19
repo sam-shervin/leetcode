@@ -6,8 +6,6 @@
 #         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-        idx_map = {val: i for i, val in enumerate(inorder)}
-        
         self.post_idx = len(postorder) - 1
 
         def helper(left, right):
@@ -16,7 +14,7 @@ class Solution:
             root_val = postorder[self.post_idx]
             self.post_idx -= 1
             root = TreeNode(root_val)
-            index = idx_map[root_val]
+            index = inorder.index(root_val)
             root.right = helper(index + 1, right)
             root.left = helper(left, index - 1)
             return root
