@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        longest = [float('-inf')]
+        self.longest = float('-inf')
 
         def dfs(root):
             if not root:
@@ -15,10 +15,10 @@ class Solution:
             max_right = max(dfs(root.right), 0)
 
             current = max_left+max_right+root.val
-            longest[0] = max(longest[0], current)
+            self.longest = max(self.longest, current)
 
             return root.val+max(max_left, max_right)
         dfs(root)
-        return longest[0]
+        return self.longest
             
         
